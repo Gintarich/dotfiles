@@ -24,7 +24,7 @@ end
 local function buildProj()
     local csproj_files = vim.fn.glob('**/*.csproj', false, true)
     if #csproj_files > 0 then
-        print(vim.fn.system('msbuild ' .. csproj_files[1]))
+        print(vim.fn.system('MSBuild.exe ' .. csproj_files[1]))
     else
         print("No csproj file found")
     end
@@ -33,7 +33,7 @@ end
 function BuildRunGB()
     -- local root_dir = vim.fn.getcwd()
     -- print("Root dir:" .. root_dir)
-    findAndBuild()
+    buildProj()
     findAndRunExecutable()
 end
 vim.keymap.set('n', '<C-b>', BuildRunGB)
