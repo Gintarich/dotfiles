@@ -1,16 +1,25 @@
 #!/bin/bash
 
+sudo apt update
+
 declare -a common_packages=(
-    curl wget git zsh tmux bat fzf unzip ripgrep ncdu ranger stow clang
+curl wget git zsh tmux bat fzf unzip ripgrep ncdu ranger stow clang
 )
-#sudo add-apt-repository ppa:neovim-ppa/unstable
-#sudo apt-get update
-#sudo apt-get install neovim
-#stow -vt ~ nvim
 
-sudo apt install "${common_packages[@]}"
+sudo apt install "${common_packages[@]}" -y
 
-if [[ -d /usr/local/bin/lazygit ]]; then
+if [[ -f /usr/bin/nvim ]]; then
+    echo "nvim installed"
+else
+    sudo add-apt-repository ppa:neovim-ppa/unstable
+    sudo apt-get update
+    sudo apt-get install neovim -y
+    stow -vt ~ nvim
+    git config --global user.email "gintars.briedis@gmail.com"
+    git config --global user.name "Gintars Briedis"
+fi
+
+if [[ -f /usr/local/bin/lazygit ]]; then
     echo "Lazy git installed"
 else
     LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
@@ -18,3 +27,11 @@ else
     tar xf lazygit.tar.gz lazygit
     sudo install lazygit /usr/local/bin
 fi
+
+git config --global user.email "gintars.briedis@gmail.com"
+git config --global user.name "Gintars Briedis"
+#Shell stuff
+#You can change zsh env in : nvim /etc/zsh/zshenv
+#add this there ZDOTDIR=~/.config/zsh
+#echo $SHELL
+chsh -s $(which zsh)
