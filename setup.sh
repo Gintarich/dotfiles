@@ -28,10 +28,17 @@ else
     sudo install lazygit /usr/local/bin
 fi
 
-git config --global user.email "gintars.briedis@gmail.com"
-git config --global user.name "Gintars Briedis"
 #Shell stuff
 #You can change zsh env in : nvim /etc/zsh/zshenv
 #add this there ZDOTDIR=~/.config/zsh
 #echo $SHELL
-chsh -s $(which zsh)
+#Sets shell to zsh if its not set
+if [[ $SHELL != /usr/bin/zsh ]]; then
+    echo "zsh not installed"    
+    chsh -s $(which zsh)
+fi
+
+#links stuff
+if [[ -d ~/.config/nvim ]]; then
+    stow -vt ~ nvim zsh
+fi
