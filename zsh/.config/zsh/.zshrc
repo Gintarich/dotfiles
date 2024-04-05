@@ -3,6 +3,9 @@ export EDITOR="nvim"
 export VISUAL="nvim"
 export MYNVIMRC="$HOME/repos/dotfiles/nvim/"
 export CDPATH=".:$HOME/.config/:$HOME/repos/"
+#VI MODE
+# bindkey -v
+# export KEYTIMEOUT=1
 #precmd() {print ""}
 #Some magic for compleation
 autoload -Uz compinit
@@ -12,6 +15,16 @@ zstyle ':completion:*' menu select
 
 source $HOME/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $HOME/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source $HOME/.config/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+
+#----------------------------------ALIASES---------------------------------------------------------------
+#EXA  
+alias ls='exa --icons --color=always --group-directories-first'
+alias ll='exa -alF --icons --color=always --group-directories-first'
+alias la='exa -a --icons --color=always --group-directories-first'
+alias l='exa -F --icons --color=always --group-directories-first'
+alias l.='exa -a | egrep "^\."'
+#--------------------------------------------------------------------------------------------------------
 
 #Git prompt stuff
 parse_git_dirty() {
@@ -42,7 +55,7 @@ RPROMPT='%F{003}$(parse_git_dirty) %F{015}%T%f'
 #CURSOR
 # Cursor is a Block:
 # echo -e -n "\x1b[\x31 q" # Blinking
-echo -e -n "\x1b[\x32 q" # Steady
+# echo -e -n "\x1b[\x32 q" # Steady
 
 # Cursor is a underscore
 # echo -e -n "\x1b[\x33 q" # Blinking
@@ -50,7 +63,7 @@ echo -e -n "\x1b[\x32 q" # Steady
 #
 # # Cursor is a vertical line
 # echo -e -n "\x1b[\x35 q" # Blinking
-# echo -e -n "\x1b[\x36 q" # Steady
+echo -e -n "\x1b[\x36 q" # Steady
 
 
 
