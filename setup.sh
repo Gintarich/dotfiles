@@ -40,5 +40,7 @@ fi
 
 #links stuff
 if [[ -d ~/.config/nvim ]]; then
-    stow -vt ~ nvim zsh
+    echo ""
+else
+    stow -vt ~ nvim zsh tmux
 fi
