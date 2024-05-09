@@ -18,12 +18,12 @@ source $HOME/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting
 # source $HOME/.config/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 #----------------------------------ALIASES---------------------------------------------------------------
-#EXA  
-# alias ls='exa --icons --color=always --group-directories-first'
-# alias ll='exa -alF --icons --color=always --group-directories-first'
-# alias la='exa -a --icons --color=always --group-directories-first'
-# alias l='exa -F --icons --color=always --group-directories-first'
-# alias l.='exa -a | egrep "^\."'
+# EXA  
+alias ls='exa --icons --color=always --group-directories-first'
+alias ll='exa -alF --icons --color=always --group-directories-first'
+alias la='exa -a --icons --color=always --group-directories-first'
+alias l='exa -F --icons --color=always --group-directories-first'
+alias l.='exa -a | egrep "^\."'
 #--------------------------------------------------------------------------------------------------------
 
 #Git prompt stuff

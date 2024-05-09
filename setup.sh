@@ -3,7 +3,7 @@
 sudo apt update
 
 declare -a common_packages=(
-curl wget git zsh tmux bat fzf unzip ripgrep ncdu ranger stow clang
+exa curl wget git zsh tmux bat fzf unzip ripgrep ncdu ranger stow clang
 )
 
 sudo apt install "${common_packages[@]}" -y
