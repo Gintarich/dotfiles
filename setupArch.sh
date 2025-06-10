@@ -2,7 +2,7 @@
 
 # Array of common packages to install
 declare -a common_packages=(
-    exa curl wget git zsh tmux bat fzf unzip ripgrep ncdu ranger stow clang wofi
+    exa curl wget git zsh tmux bat fzf unzip ripgrep ncdu ranger stow clang wofi swayimg hyprpaper
 )
 
 # Install common packages if not already present

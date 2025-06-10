@@ -3,17 +3,22 @@
 * {
   border: none;
   border-radius: 0;
-  font-family: "Hack Nerd Font";
+  font-family: "JetBrainsMono Nerd Font";
   font-weight: 600;
   font-size: 14px;
   min-height: 0;
 }
 
 window#waybar {
-  background: rgba(0, 0, 0, 0.2);
-  color: @text;
+  background: none;
+  border-radius: 20px;
   /* border-bottom: 1px solid white; */
   /* border-radius: 0px 0px 8px 8px; */
+}
+
+window > box {
+    border-radius: 10px;
+    opacity: 0.9;
 }
 
 tooltip {
@@ -27,6 +32,7 @@ tooltip {
 #workspaces button {
   padding: 0px 4px;
   color: @highlightHigh;
+  background-color: @base;
   margin: 2px 2px;
   border-radius: 4px;
 }
@@ -69,8 +75,16 @@ tooltip {
 #memory,
 #custom-powermenu,
 #backlight {
-  opacity: 1;
-  padding: 0px 10px;
+   /* border-bottom: 2px solid @rose; */
+    padding: 0 10px;
+    border-radius: 15px;
+    background-color: @base;
+    color: @rose;
+    box-shadow: rgba(0, 0, 0, 0.320) 2 2 5 2px; 
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    font-weight: bolder;
 }
 
 #bluetooth {
@@ -105,8 +119,20 @@ window#waybar.empty #window {
 }
 
 #clock {
-  color: @rose;
-  padding-right: 20px;
+    background: linear-gradient(45deg, @rose, @love, @gold);
+    margin-right: 25px;
+    color: @base;
+    background-size: 300% 300%;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.577);
+    animation: gradient 20s ease infinite;
+    font-size: 16px;
+    padding-top: 2px;
+    padding-right: 21px;
+    font-weight: bolder;
+    padding-left: 20px;
+    box-shadow: rgba(0, 0, 0, 0.320) 2 2 5 2px;
+    /*   border-bottom: 3px solid @overlay; */
+    border-bottom: 2px solid @base;
 }
 
 #network {

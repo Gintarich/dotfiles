@@ -7,22 +7,27 @@ if [[ ! -d "$ZINIT_HOME" ]]; then
 fi
 # Source zinit
 source "${ZINIT_HOME}/zinit.zsh"
+##--zinit setup--
+#zvm_config() {
+#}
 # Add in zsh plugins
+zinit light jeffreytse/zsh-vi-mode
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
 # Add in snippets
 zinit snippet OMZP::git
-zinit snippet OMZP::sudo
+# zinit snippet OMZP::sudo
 zinit snippet OMZP::archlinux
 zinit snippet OMZP::command-not-found
+
 # Load completions
 autoload -U compinit && compinit
 zinit cdreplay -q
 # Keybindings
 # emacs mode -e
-bindkey -e
+# bindkey -v
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 # History
@@ -77,6 +82,8 @@ alias l='exa -F --icons --color=always --group-directories-first'
 alias l.='exa -a | egrep "^\."'
 alias lout='killall -u $USER'
 alias bt='bluetoothctl connect 00:0A:45:2A:5C:1D'
+alias fonts='fc-list --format '%{family}\n' | sort | uniq'
+alias reloadwaybar='pkill waybar && hyprctl dispatch exec waybar'
 #--------------------------------------------------------------------------------------------------------
 
 #Git prompt stuff
@@ -116,14 +123,5 @@ RPROMPT='%F{#3e8fb0}$(parse_git_dirty) %F{015}%T%f'
 #
 # # Cursor is a vertical line
 # echo -e -n "\x1b[\x35 q" # Blinking
-echo -e -n "\x1b[\x36 q" # Steady
-
-
-
-
-
-
-
-
-
+# echo -e -n "\x1b[\x36 q" # Steady <-- this was mine
 

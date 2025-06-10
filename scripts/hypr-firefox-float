@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+tok="ff-float-$$"            # unique WM_CLASS / app-id
+profile=float                # create once with -CreateProfile
+
+# Wayland vs X11 selector
+if [[ $XDG_SESSION_TYPE = wayland ]]; then
+    firefox --new-instance -P "$profile" \
+            --name="$tok"   --new-window "$@" &
+else
+    firefox --new-instance -P "$profile" \
+            --class="$tok"  --new-window "$@" &
+fi
+
+# wait up to 5 s until a window with that class appears
+for _ in {1..50}; do
+    sleep 0.1
+    if hyprctl -j clients |
+         jq -e --arg tok "$tok" '.[] | select(.class==$tok)' >/dev/null
+    then
+        break
+    fi
+done
+
+# apply rules directly on the class selector
+if hyprctl -j clients |
+      jq -e --arg tok "$tok" '.[] | select(.class==$tok)' >/dev/null
+then
+    hyprctl dispatch focuswindow     class:"$tok"
+    hyprctl dispatch togglefloating  class:"$tok"
+    hyprctl dispatch resizeactive    900 500
+    hyprctl dispatch centerwindow
+else
+    echo "⚠️  window not detected in time" >&2
+    exit 1
+fi
