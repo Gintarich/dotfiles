@@ -10,6 +10,15 @@ return {
         config = function ()
             vim.cmd.colorscheme("tokyonight-night")
         end
+    },
+    {
+        "rose-pine/neovim",
+        name = "rose-pine",
+        config = function()
+            require('rose-pine').setup({
+            })
+            vim.cmd("colorscheme rose-pine-moon")
+        end
     }
 
 }
