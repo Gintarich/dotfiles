@@ -1,19 +1,45 @@
 return {
-        'nvim-telescope/telescope.nvim',
-        tag = "0.1.5",
-        dependencies = {'nvim-lua/plenary.nvim'},
-        config = function ()
+    'nvim-telescope/telescope.nvim',
+    tag = "0.1.5",
+    dependencies = {
+        'nvim-lua/plenary.nvim',
+        {
+            'nvim-telescope/telescope-fzf-native.nvim',
+            build = 'make',            -- compile the native sorter
+            cond = function()          -- optional: only load if `make` is available
+                return vim.fn.executable('make') == 1
+            end,
+        },
+    },
+    config = function ()
 
             local trouble = require("trouble.sources.telescope")
             -- local trouble = require("trouble.providers.telescope")
-            require('telescope').setup({
+            local telescope = require("telescope")
+            telescope.setup({
                 defaults = {
                     mappings = {
                         i = { ["<c-t>"] = trouble.open },
                         n = { ["<c-t>"] = trouble.open },
                     },
                 },
+                pickers = {
+                    live_grep = {
+                        file_ignore_patterns = { 'node_modules', '.git', '.venv' },
+                        additional_args = function(_)
+                            return { "--hidden" }
+                        end
+                    },
+                    find_files = {
+                        file_ignore_patterns = { 'node_modules', '.git', '.venv' },
+                        hidden = true
+                    }
+                },
+                extensions = {
+                    "fzf"
+                },
             })
+            telescope.load_extension("fzf")
             local builtin = require('telescope.builtin')
             -- vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
             vim.keymap.set('n', '<leader>sp', builtin.git_files, {desc = '[S]earch Git Re[p]ository'})
@@ -22,7 +48,6 @@ return {
             -- vim.keymap.set('n', '<leader>pg', builtin.live_grep, {})
             -- vim.keymap.set('n', '<leader>ph', builtin.help_tags, {})
             -- See `:help telescope.builtin`
-            local builtin = require 'telescope.builtin'
             vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
             vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
             vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })

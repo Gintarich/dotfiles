@@ -4,7 +4,6 @@ return {
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
         "j-hui/fidget.nvim",
-        "folke/neodev.nvim",
         "hrsh7th/cmp-nvim-lsp",
         { 'j-hui/fidget.nvim', opts = {} },
         "Hoffs/omnisharp-extended-lsp.nvim",
@@ -24,11 +23,6 @@ return {
             ensure_installed = {"lua_ls","omnisharp","clangd"},
             handlers = {
                 function(server_name) -- default handler (optional)
-                    if server_name == "lua_ls" then
-                        require("neodev").setup {
-                            capabilities = capabilities
-                        }
-                    end
                     require("lspconfig")[server_name].setup {
                         capabilities = capabilities
                     }
