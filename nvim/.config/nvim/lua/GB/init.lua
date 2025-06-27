@@ -1,4 +1,5 @@
 require("GB.remap")
+require("GB.lsp")
 require("GB.set")
 require("GB.lazy_init")
 
