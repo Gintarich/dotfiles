@@ -1,5 +1,6 @@
 local M = {
     "hrsh7th/nvim-cmp",
+    enabled = false,
     event = "InsertEnter",
     dependencies = {
         {
@@ -49,6 +50,7 @@ function M.config()
 
     -- cmp_setup object
     local cmp_setup = {}
+
 
     cmp_setup.sources = cmp.config.sources({
         { name = 'path' },

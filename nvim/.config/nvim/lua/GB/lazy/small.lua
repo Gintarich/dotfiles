@@ -22,5 +22,8 @@ return {
     opts = {},
     },
 
-    { 'Issafalcon/lsp-overloads.nvim'},
+    {
+        'Issafalcon/lsp-overloads.nvim',
+        enabled = false,
+    },
 }

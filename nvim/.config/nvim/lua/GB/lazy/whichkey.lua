@@ -13,6 +13,7 @@
           { '<leader>w', group = '[W]orkspace' },
           { '<leader>t', group = '[T]oggle' },
           { '<leader>g', group = '[G]it commands'},
+          { '<leader>n', group = '[N]otes'},
       }
   end,
   }
