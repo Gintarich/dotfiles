@@ -36,4 +36,4 @@ function BuildRunGB()
     buildProj()
     findAndRunExecutable()
 end
-vim.keymap.set('n', '<C-b>', BuildRunGB)
+-- vim.keymap.set('n', '<C-b>', BuildRunGB)

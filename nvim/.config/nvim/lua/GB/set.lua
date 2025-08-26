@@ -3,6 +3,7 @@ vim.o.foldlevel = 99           -- Using ufo provider need a large value, feel fr
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+vim.opt.winborder = 'rounded'
 
 vim.opt.nu = true
 vim.opt.relativenumber = true
@@ -39,5 +40,5 @@ vim.opt.virtualedit = "block"
 vim.opt.inccommand = "split"
 
 vim.opt.ignorecase = true
-vim.opt.splitbelow = true
-vim.opt.splitright = true
+-- vim.opt.splitbelow = true
+-- vim.opt.splitright = true

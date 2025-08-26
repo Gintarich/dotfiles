@@ -46,7 +46,12 @@ vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
 end)
 
+vim.keymap.set("v", "<C-b>", 'c**<C-r>"**<Esc>', { desc = "Bold selection" }) 
+vim.keymap.set('n', "<C-b>", 'viwc**<C-r>"**<Esc>', {desc = "Bold under cursor"})
+
 vim.keymap.set("n", "<leader>pp", function ()
 vim.lsp.buf.signature_help()
 end)
 
+--Obsidian
+vim.keymap.set('n', '<leader>ns',"<cmd>Obsidian search<cr>")

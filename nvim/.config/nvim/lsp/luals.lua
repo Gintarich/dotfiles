@@ -1,3 +1,9 @@
+local M = {
+    someFunc = function ()
+    end,
+}
+
+
 return {
     cmd = { 'lua-language-server' },
     filetypes = { 'lua' },
