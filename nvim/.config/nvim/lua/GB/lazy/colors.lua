@@ -24,6 +24,8 @@ return {
                     ["@markup.italic.markdown"]        = { fg = "foam", italic = true },
                     ["@markup.strong.markdown_inline"] = { fg = "love", bold = true },
                     ["@markup.italic.markdown_inline"] = { fg = "foam", italic = true },
+                    ["@tag.html"]                      = { fg = "pine" },
+                    ["@string.html"]                   = { fg = "gold" },
                     -- popup
                     BlinkCmpMenu                       = { fg = "text", bg = "surface" },
                     BlinkCmpMenuBorder                 = { fg = "muted", bg = "surface" },

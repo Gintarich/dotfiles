@@ -23,7 +23,7 @@ return {
 
     {
         "folke/snacks.nvim",
-        enabled = false,
+        enabled = true,
         ---@type snacks.Config
         opts = {
             image = {
@@ -31,16 +31,20 @@ return {
                 resolve = function(_, src)
                     -- 1) Expand '~/…' ➜ '/home/you/…'
                     src = src:gsub("^~", vim.env.HOME)
-                    -- 2) If it's a bare filename, look in the vault's attachments dir
-                    local vault = vim.fn.expand("~/personal/Notes/ObsidianNotes")
-                    local attaches = vault .. "/Media/Images/" -- <- adjust once
-                    if not src:find("/") then                  -- no slashes → bare
-                        local try = attaches .. src            -- e.g. .../TEST.png
-                        if vim.uv.fs_stat(try) then            -- file exists?
-                            return try                         -- ✔ use this path
+                    local imgPaths = {
+                        coding = vim.fn.expand("~/personal/Notes/PROGRAMMESANA/Media/Images/"),
+                        notes = vim.fn.expand("~/personal/Notes/ObsidianNotes/Media/Images/")
+                    }
+
+                    if src:find("/") then return nil end
+
+                    for _, value in pairs(imgPaths) do
+                        local myPath = value .. src
+                        if(vim.uv.fs_stat(myPath)) then
+                            return myPath
                         end
                     end
-                    -- 3) Anything else → let Snacks keep searching
+
                     return nil
                 end,
                 doc = {
@@ -57,7 +61,7 @@ return {
                 --     placement = true,
                 -- },
                 math = {
-                    enabled = true,     -- enable math expression rendering
+                    enabled = true, -- enable math expression rendering
                     -- in the templates below, `${header}` comes from any section in your document,
                     -- between a start/end header comment. Comment syntax is language-specific.
                     -- * start comment: `// snacks: header start`
