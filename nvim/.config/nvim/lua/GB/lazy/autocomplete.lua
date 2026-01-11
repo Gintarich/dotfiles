@@ -58,7 +58,15 @@ return {
         },
         fuzzy = { implementation = "prefer_rust_with_warning" }
     },
-    opts_extend = { "sources.default" }
+    config = function(_, opts)
+        require('luasnip').setup({
+            enable_autosnippets = true,
+        })
+        require("luasnip.loaders.from_vscode").lazy_load({
+            paths = { "~/.local/share/nvim/lazy/friendly-snippets" }
+        })
+        require("blink.cmp").setup(opts)
+    end
 }
 
 

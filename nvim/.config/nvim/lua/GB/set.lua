@@ -1,3 +1,13 @@
+-- Setup python for quarto
+local venv = vim.fn.expand("~/.venvs/quarto")
+-- Neovim Python provider
+vim.g.python3_host_prog = venv .. "/bin/python"
+-- Make anything Neovim spawns use the venv first
+vim.env.VIRTUAL_ENV = venv
+vim.env.PATH = venv .. "/bin:" .. vim.fn.expand("~/.local/bin") .. ":" .. vim.env.PATH
+
+
+
 vim.o.foldcolumn = '1'         -- '0' is not bad
 vim.o.foldlevel = 99           -- Using ufo provider need a large value, feel free to decrease the value
 vim.o.foldlevelstart = 99
