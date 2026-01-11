@@ -2,6 +2,9 @@
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, {desc = "Open Netrw"})
 
+-- Document stuff
+vim.keymap.set("n", "<leader>dm", "<cmd>Noice all<CR>", {desc = "[D]ocument [M]essages"})
+
 -- Moving lines
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -15,10 +18,11 @@ vim.keymap.set("n", "N", "Nzzzv")
 
 
 -- greatest remap ever (Delete in void register to continiue pasting)
-vim.keymap.set("x", "<leader>p", [["_dP]])
+vim.keymap.set("x", "<leader>P", [["_dP]])
 
 -- next greatest remap ever : asbjornHalan
 vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
+vim.keymap.set({"n", "v"}, "<leader>p", [["+p]])
 -- Copy in system clipboard
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
@@ -55,3 +59,8 @@ end)
 
 --Obsidian
 vim.keymap.set('n', '<leader>ns',"<cmd>Obsidian search<cr>")
+
+
+vim.keymap.set("n","<leader>cn",function ()
+  require("todo-comments").jump_next()
+end, {desc = "Next todo comment"})

@@ -21,6 +21,7 @@ zinit snippet OMZP::git
 # zinit snippet OMZP::sudo
 zinit snippet OMZP::archlinux
 zinit snippet OMZP::command-not-found
+export PATH="$HOME/.pixi/bin:$HOME/.local/bin:$PATH"
 
 # Load completions
 autoload -U compinit && compinit
@@ -125,3 +126,5 @@ RPROMPT='%F{#3e8fb0}$(parse_git_dirty) %F{015}%T%f'
 # echo -e -n "\x1b[\x35 q" # Blinking
 # echo -e -n "\x1b[\x36 q" # Steady <-- this was mine
 
+
+. "$HOME/.local/share/../bin/env"

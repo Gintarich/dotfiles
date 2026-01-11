@@ -10,4 +10,11 @@ return{
         },
         provideFormatter = true,
     },
+    settings ={
+      html = {
+        customData = {
+          vim.fn.expand("~/.local/share/lsp-data/svg.html-data.json")
+        }
+      }
+    }
 }

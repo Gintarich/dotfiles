@@ -1,8 +1,21 @@
-return{
-    cmd = { "typescript-language-server", "--stdio" },
-    filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
-    root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
-    init_options = {
-        hostInfo = "neovim",
-    },
-}
+ return {
+   cmd = { 'typescript-language-server', '--stdio' },
+   root_dir = vim.fs.root(0, { 'package.json', 'tsconfig.json', 'jsconfig.json', '.git' }),
+   single_file_support = true,
+   filetypes = {
+     "javascript",
+     "javascriptreact",
+     "typescript",
+     "typescriptreact",
+   },
+   capabilities = {
+     textDocument = {
+       completion = {
+         completionItem = {
+           snippetSupport = true
+         }
+       }
+     }
+   },
+   settings = {},
+ }

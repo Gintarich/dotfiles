@@ -1,4 +1,5 @@
 require("GB.remap")
+vim.g.python3_host_prog = vim.fn.expand("~/.venvs/quarto/bin/python")
 require("GB.lsp")
 require("GB.set")
 require("GB.lazy_init")
