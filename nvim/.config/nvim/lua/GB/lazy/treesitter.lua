@@ -10,6 +10,7 @@ return {
       "markdown", "markdown_inline", "bash", "regex",
       "latex", "html", "css", "javascript", "python"
     },
+    -- "latex", "html", "css", "javascript", "javascriptreact", "typescriptreact", "python"
     sync_install = false,
     auto_install = true,
     highlight = {
@@ -17,6 +18,9 @@ return {
       additional_vim_regex_highlighting = false,
     },
   },
+  config = function(_, opts)
+    require('nvim-treesitter.configs').setup(opts)
+  end,
   -- config = function()
   --     require 'nvim-treesitter.configs'.setup {
   --         -- A list of parser names, or "all" (the five listed parsers should always be installed)
