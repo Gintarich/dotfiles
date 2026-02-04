@@ -5,6 +5,10 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, {desc = "Open Netrw"})
 -- Document stuff
 vim.keymap.set("n", "<leader>dm", "<cmd>Noice all<CR>", {desc = "[D]ocument [M]essages"})
 
+
+vim.keymap.set("n", "<leader>hr", "<cmd>noh<CR>", {desc = "[H]ighlight [R]emove"})
+
+
 -- Moving lines
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -34,6 +38,7 @@ vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 vim.keymap.set("n", "Q", "<nop>")
 -- vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, {desc = '[F]ormat current file'})
+vim.keymap.set({"n", "v"}, "<leader>ca", vim.lsp.buf.code_action, {desc = '[C]ode [A]ction'})
 
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
@@ -50,7 +55,7 @@ vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
 end)
 
-vim.keymap.set("v", "<C-b>", 'c**<C-r>"**<Esc>', { desc = "Bold selection" }) 
+vim.keymap.set("v", "<C-b>", 'c**<C-r>"**<Esc>', { desc = "Bold selection" })
 vim.keymap.set('n', "<C-b>", 'viwc**<C-r>"**<Esc>', {desc = "Bold under cursor"})
 
 vim.keymap.set("n", "<leader>pp", function ()

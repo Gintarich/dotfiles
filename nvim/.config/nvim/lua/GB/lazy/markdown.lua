@@ -1,7 +1,7 @@
 return {
     {
         'MeanderingProgrammer/render-markdown.nvim',
-        enabled = false,
+        enabled = true,
         dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
         -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
         -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
@@ -24,7 +24,7 @@ return {
 
     {
         "folke/snacks.nvim",
-        enabled = true,
+        enabled = false,
         ---@type snacks.Config
         opts = {
             image = {
@@ -50,7 +50,7 @@ return {
                 end,
                 doc = {
                     max_width  = 80, -- cells (↓ from 80)
-                    max_height = 40, -- cells (↓ from 40)
+                    max_height = 10, -- cells (↓ from 40)
                 },
                 convert = {
                     magick = {
