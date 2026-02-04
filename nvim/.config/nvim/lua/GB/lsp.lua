@@ -1,5 +1,5 @@
 vim.lsp.enable({
-    "luals", "ts_ls", "cssls",  "htmlls", "bashls", "basedpyright"
+    "luals", "ts_ls", "cssls", "htmlls", "bashls", "basedpyright", "tailwindcssls", "eslint_ls"
 })
 
 local lsp_icons = {
