@@ -5,6 +5,11 @@ if [[ ! -d "$ZINIT_HOME" ]]; then
     mkdir -p "$(dirname $ZINIT_HOME)"
     git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
 # Source zinit
 source "${ZINIT_HOME}/zinit.zsh"
 ##--zinit setup--
@@ -128,3 +133,6 @@ RPROMPT='%F{#3e8fb0}$(parse_git_dirty) %F{015}%T%f'
 
 
 . "$HOME/.local/share/../bin/env"
+
+# bun completions
+[ -s "/home/gintarich/.bun/_bun" ] && source "/home/gintarich/.bun/_bun"
