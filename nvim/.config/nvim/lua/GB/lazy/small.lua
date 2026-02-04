@@ -1,30 +1,35 @@
 return {
-    { 'numToStr/Comment.nvim', opts = {} },
-    -- Highlight todo, notes, etc in comments
-    -- { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
-    { 'folke/todo-comments.nvim', dependencies = { 'nvim-lua/plenary.nvim' }, opts={} },
-    { -- Adds git related signs to the gutter, as well as utilities for managing changes
+  { 'numToStr/Comment.nvim',    opts = {} },
+  -- Highlight todo, notes, etc in comments
+  -- { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+  { 'folke/todo-comments.nvim', dependencies = { 'nvim-lua/plenary.nvim' }, opts = {} },
+  {   -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
     opts = {
-        signs = {
-            add = { text = '+' },
-            change = { text = '~' },
-            delete = { text = '_' },
-            topdelete = { text = '‾' },
-            changedelete = { text = '~' },
-        },
-    },},
-
-    { -- Add indentation guides even on blank lines
-        'lukas-reineke/indent-blankline.nvim',
-        -- Enable `lukas-reineke/indent-blankline.nvim`
-        -- See `:help ibl`
-        main = 'ibl',
-        opts = {},
+      signs = {
+        add = { text = '+' },
+        change = { text = '~' },
+        delete = { text = '_' },
+        topdelete = { text = '‾' },
+        changedelete = { text = '~' },
+      },
     },
+    config = function ()
+      require("gitsigns").setup()
+      vim.keymap.set("n", "<leader>gP", ":Gitsigns preview_hunk<CR>", {desc="[G]it [P]review"})
+    end
+  },
 
-    {
-        'Issafalcon/lsp-overloads.nvim',
-        enabled = false,
-    },
+  {   -- Add indentation guides even on blank lines
+    'lukas-reineke/indent-blankline.nvim',
+    -- Enable `lukas-reineke/indent-blankline.nvim`
+    -- See `:help ibl`
+    main = 'ibl',
+    opts = {},
+  },
+
+  {
+    'Issafalcon/lsp-overloads.nvim',
+    enabled = false,
+  },
 }

@@ -4,11 +4,17 @@ return {
     -- Recommended for `ask()` and `select()`.
     -- Required for `snacks` provider.
     ---@module 'snacks' <- Loads `snacks.nvim` types for configuration intellisense.
-    { "folke/snacks.nvim", opts = { input = {}, picker = {}, terminal = {} } },
+    -- { "folke/snacks.nvim", opts = { input = {}, picker = {}, terminal = {} } },
   },
   config = function()
     ---@type opencode.Opts
     vim.g.opencode_opts = {
+      provider = {
+        enabled = "kitty",
+        kitty={
+          location="os-window",
+        }
+      }
       -- Your configuration, if any — see `lua/opencode/config.lua`, or "goto definition".
     }
 
@@ -27,9 +33,10 @@ return {
     vim.keymap.set("n", "<leader>ol", function() return require("opencode").operator("@this ") .. "_" end,
       { expr = true, desc = "Add line to opencode" })
 
-    vim.keymap.set("n", "<S-C-u>", function() require("opencode").command("session.half.page.up") end,
+    vim.keymap.set("n", "<S-u>", function() require("opencode").command("session.half.page.up") end,
       { desc = "opencode half page up" })
-    vim.keymap.set("n", "<S-C-d>", function() require("opencode").command("session.half.page.down") end,
+    vim.keymap.set("n", "<S-d>", function() require("opencode").command("session.half.page.down") end,
       { desc = "opencode half page down" })
   end,
+  
 }

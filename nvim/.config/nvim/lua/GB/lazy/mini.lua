@@ -8,7 +8,30 @@ return { -- Collection of various small independent plugins/modules
             --  - va)  - [V]isually select [A]round [)]paren
             --  - yinq - [Y]ank [I]nside [N]ext [']quote
             --  - ci'  - [C]hange [I]nside [']quote
-            require('mini.ai').setup { n_lines = 500 }
+            require('mini.ai').setup {
+                n_lines = 500,
+                -- Disable mini.ai in terminal buffers (e.g., opencode.nvim)
+                mappings = {
+                    -- Disable operator-pending mode mappings in terminal
+                    around = '',
+                    inside = '',
+                    around_next = '',
+                    inside_next = '',
+                    around_last = '',
+                    inside_last = '',
+                    goto_left = '',
+                    goto_right = '',
+                },
+            }
+
+            -- Re-enable mini.ai only for non-terminal buffers
+            vim.api.nvim_create_autocmd('TermOpen', {
+                group = vim.api.nvim_create_augroup('mini-ai-term', { clear = true }),
+                callback = function()
+                    vim.b.miniai_disable = true
+                end,
+                desc = 'Disable mini.ai in terminal buffers'
+            })
 
             -- Add/delete/replace surroundings (brackets, quotes, etc.)
             --
