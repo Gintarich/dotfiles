@@ -5,7 +5,7 @@ source ./scripts/utils.sh
 
 # Array of common packages to install
 declare -a PACKAGES=(
-    curl wget git zsh tmux bat fzf unzip ripgrep stow clang wofi npm lsof
+    curl wget git zsh tmux bat fzf unzip ripgrep stow clang wofi npm lsof bun
 )
 
 install_packages "${PACKAGES[@]}"
