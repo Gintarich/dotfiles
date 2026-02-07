@@ -60,6 +60,24 @@ vim.diagnostic.config({
 
 -- standard autocplete
 
+local format_on_save_group = vim.api.nvim_create_augroup('lsp-format-on-save', { clear = false })
+
+local function enable_format_on_save(bufnr)
+    vim.api.nvim_clear_autocmds({ group = format_on_save_group, buffer = bufnr })
+    vim.api.nvim_create_autocmd('BufWritePre', {
+        group = format_on_save_group,
+        buffer = bufnr,
+        callback = function()
+            vim.lsp.buf.format({
+                bufnr = bufnr,
+                async = false,
+                timeout_ms = 2000,
+            })
+        end,
+        desc = 'LSP format on save',
+    })
+end
+
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(ev)
         -- local client = vim.lsp.get_client_by_id(ev.data.client_id)
@@ -69,7 +87,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
         local map = function(keys, func, desc)
             vim.keymap.set('n', keys, func, { buffer = ev.buf, desc = 'LSP: ' .. desc })
         end
-        local client = vim.lsp.get_client_by_id(ev.data.client_id)
+        enable_format_on_save(ev.buf)
+
         map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
         map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
         map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
