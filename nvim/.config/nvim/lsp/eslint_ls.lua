@@ -18,6 +18,11 @@ return {
         'eslint.config.mjs',
         'package.json',
     },
+    on_attach = function(client, _)
+        -- Ensure eslint can be selected by vim.lsp.buf.format().
+        client.server_capabilities.documentFormattingProvider = true
+        client.server_capabilities.documentRangeFormattingProvider = true
+    end,
     settings = {
         validate = 'on',
         packageManager = nil,
@@ -34,6 +39,7 @@ return {
                 enable = true,
             },
         },
+        format = true,
         rulesCustomizations = {},
         run = 'onType',
         problems = {

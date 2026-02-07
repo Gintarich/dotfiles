@@ -32,6 +32,7 @@ return {
           ["@tag.tsx"]                       = { fg = "love" },
           ["@tag.builtin"]                   = { fg = "foam" },
           ["@tag.builtin.tsx"]               = { fg = "pine" },
+          ["@tag.builtin.javascript"]        = { fg = "pine" },
           ["@string.special.url.html"]       = { fg = "gold" },
           ["@variable"]                      = { fg = "foam" },
           ["@function.method.call"]          = { fg = "rose" },
