@@ -114,8 +114,10 @@ parse_git_branch(){
 }
 
 #PROMPT
-
-PROMPT='%B%F{#3e8fb0}  %B%F{015}%~%B%F{006} 󰅂%B%F{005}$(parse_git_branch)%b%F{015} '
+# FULL FILE PATH I USE "%~"
+# PROMPT='%B%F{#3e8fb0}  %B%F{015}%~%B%F{006} 󰅂%B%F{005}$(parse_git_branch)%b%F{015} '
+# CUT FILE PATH I USE "%2~" [2 levels deep]
+PROMPT='%B%F{#3e8fb0}  %B%F{015}%2~%B%F{006} 󰅂%B%F{005}$(parse_git_branch)%b%F{015} '
 # RPROMPT='%F{003}$(parse_git_branch) %F{015}%T%f' 
 RPROMPT='%F{#3e8fb0}$(parse_git_dirty) %F{015}%T%f' 
 #CURSOR

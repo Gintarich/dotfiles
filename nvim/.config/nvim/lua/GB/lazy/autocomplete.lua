@@ -2,14 +2,14 @@ return {
   'saghen/blink.cmp',
   -- optional: provides snippets for the snippet source
   dependencies = { 'rafamadriz/friendly-snippets',
-    { "L3MON4D3/LuaSnip", run = "make install_jsregexp"}
+    { "L3MON4D3/LuaSnip", run = "make install_jsregexp" }
   },
   version = '1.*',
 
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
-    keymap = { preset = 'super-tab' },
+    keymap = { preset = 'enter' },
     appearance = {
       -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
       -- Adjusts spacing to ensure icons are aligned
@@ -31,11 +31,18 @@ return {
       menu = {
         border = 'rounded',
         draw = {
-          columns = { { "source_name", gap = 1 }, { "label", "label_description", gap = 1 }, { "kind_icon", "kind", gap = 1 } },
+          columns = {
+            { "source_name", gap = 1 },
+            { "label",       "label_description", gap = 1 },
+            { "kind_icon",   "kind",              gap = 1 }
+          },
           components = {
             source_name = {
               width = { max = 30 },
-              text = function(ctx) return "[" .. string.upper(ctx.source_name) .. "]" end,
+              text = function(ctx)
+                local name = ctx.item.client_name or ctx.source_name or 'unknown'
+                return "[" .. string.upper(name) .. "]"
+              end,
               highlight = 'BlinkCmpSource',
             }
           }
@@ -49,6 +56,9 @@ return {
       default = { 'snippets', 'lsp', 'path', 'buffer' },
       per_filetype = {
         markdown = { "buffer" },
+        javascriptreact = { "snippets", "lsp", "path" }, -- no "buffer"
+        -- (optional) also for TSX:
+        typescriptreact = { "snippets", "lsp", "path" },
       },
     },
     snippets = {
@@ -61,9 +71,16 @@ return {
     fuzzy = { implementation = "prefer_rust_with_warning" }
   },
   config = function(_, opts)
-    require('luasnip').setup({
+    local luasnip = require('luasnip')
+
+    luasnip.setup({
       enable_autosnippets = true,
     })
+
+    -- Allow JS/JSX snippets to be available in TS/TSX buffers
+    luasnip.filetype_extend('typescript', { 'javascript' })
+    luasnip.filetype_extend('typescriptreact', { 'javascriptreact', 'javascript' })
+
     require("luasnip.loaders.from_vscode").lazy_load({
       paths = { "~/.local/share/nvim/lazy/friendly-snippets" }
     })

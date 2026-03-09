@@ -1,5 +1,5 @@
 vim.lsp.enable({
-    "luals", "ts_ls", "cssls", "htmlls", "bashls", "basedpyright", "tailwindcssls", "eslint_ls"
+  "luals", "ts_ls", "cssls", "htmlls", "bashls", "basedpyright", "tailwindcssls", "eslint_ls"
 })
 
 local lsp_icons = {
@@ -36,26 +36,26 @@ end
 -- diagnostics
 local icons = require('GB.incons')
 vim.diagnostic.config({
-    signs ={
-        text = {
-            [vim.diagnostic.severity.ERROR] = icons.diagnostics.Error,
-            [vim.diagnostic.severity.WARN] = icons.diagnostics.Warning,
-            [vim.diagnostic.severity.HINT] = icons.diagnostics.Hint,
-            [vim.diagnostic.severity.INFO] = icons.diagnostics.Information,
-        }
-    },
-    virtual_text = true,
-    update_in_insert = false,
-    underline = true,
-    severity_sort = true,
-    float = {
-        focusable = true,
-        style = "minimal",
-        border = "rounded",
-        source = true,
-        header = "",
-        prefix = "",
-    },
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = icons.diagnostics.Error,
+      [vim.diagnostic.severity.WARN] = icons.diagnostics.Warning,
+      [vim.diagnostic.severity.HINT] = icons.diagnostics.Hint,
+      [vim.diagnostic.severity.INFO] = icons.diagnostics.Information,
+    }
+  },
+  virtual_text = true,
+  update_in_insert = false,
+  underline = true,
+  severity_sort = true,
+  float = {
+    focusable = true,
+    style = "minimal",
+    border = "rounded",
+    source = true,
+    header = "",
+    prefix = "",
+  },
 })
 
 -- standard autocplete
@@ -63,48 +63,60 @@ vim.diagnostic.config({
 local format_on_save_group = vim.api.nvim_create_augroup('lsp-format-on-save', { clear = false })
 
 local function enable_format_on_save(bufnr)
-    vim.api.nvim_clear_autocmds({ group = format_on_save_group, buffer = bufnr })
-    vim.api.nvim_create_autocmd('BufWritePre', {
-        group = format_on_save_group,
-        buffer = bufnr,
-        callback = function()
-            vim.lsp.buf.format({
-                bufnr = bufnr,
-                async = false,
-                timeout_ms = 2000,
-            })
-        end,
-        desc = 'LSP format on save',
-    })
+  vim.api.nvim_clear_autocmds({ group = format_on_save_group, buffer = bufnr })
+  vim.api.nvim_create_autocmd('BufWritePre', {
+    group = format_on_save_group,
+    buffer = bufnr,
+    callback = function()
+      vim.lsp.buf.format({
+        bufnr = bufnr,
+        async = false,
+        timeout_ms = 2000,
+      })
+    end,
+    desc = 'LSP format on save',
+  })
 end
 
 vim.api.nvim_create_autocmd('LspAttach', {
-    callback = function(ev)
-        -- local client = vim.lsp.get_client_by_id(ev.data.client_id)
-        -- if client and client:supports_method('textDocument/completion') then
-        --     vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
-        -- end
-        local map = function(keys, func, desc)
-            vim.keymap.set('n', keys, func, { buffer = ev.buf, desc = 'LSP: ' .. desc })
-        end
-        enable_format_on_save(ev.buf)
+  callback = function(ev)
+    -- local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    -- if client and client:supports_method('textDocument/completion') then
+    --     vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+    -- end
+    local map = function(keys, func, desc)
+      vim.keymap.set('n', keys, func, { buffer = ev.buf, desc = 'LSP: ' .. desc })
+    end
+    enable_format_on_save(ev.buf)
 
-        map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-        map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-        map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-        map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
-        map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-        map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
-        map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-        -- map('K', hoverLogic, 'Hover Documentation')
-        -- map("<C-h>", function() vim.lsp.buf.signature_help() end, "")
-    end,
+    map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+    map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+    map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+    map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
+    map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+    map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+    map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+    -- Smart hover show diagnostics or hover documentation.
+    map('K', function()
+      local cursor = vim.api.nvim_win_get_cursor(0)
+      local lnum = cursor[1] - 1
+      local diags = vim.diagnostic.get(ev.buf, { lnum = lnum })
+
+      if #diags > 0 then
+        vim.diagnostic.open_float(nil, { focusable = false, scope = 'line' })
+        return
+      end
+
+      vim.lsp.buf.hover()
+    end, 'Hover / Diagnostics')
+    -- map("<C-h>", function() vim.lsp.buf.signature_help() end, "")
+  end,
 
 })
 
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = "css,eruby,html,htmldjango,javascriptreact,less,pug,sass,scss,typescriptreact",
+  pattern = "css,eruby,html,htmldjango,less,pug,sass,scss",
   callback = function()
     vim.lsp.start({
       cmd = { "emmet-language-server", "--stdio" },

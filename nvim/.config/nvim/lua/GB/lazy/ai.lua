@@ -11,8 +11,8 @@ return {
     vim.g.opencode_opts = {
       provider = {
         enabled = "kitty",
-        kitty={
-          location="os-window",
+        kitty = {
+          location = "os-window",
         }
       }
       -- Your configuration, if any — see `lua/opencode/config.lua`, or "goto definition".
@@ -37,6 +37,9 @@ return {
       { desc = "opencode half page up" })
     vim.keymap.set("n", "<S-d>", function() require("opencode").command("session.half.page.down") end,
       { desc = "opencode half page down" })
+
+    vim.keymap.set("n", "<leader>os", function() require("opencode").command("agent.cycle") end,
+      { desc = "cycle the agent" })
   end,
-  
+
 }
