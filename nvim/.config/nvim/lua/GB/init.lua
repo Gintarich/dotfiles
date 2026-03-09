@@ -5,11 +5,20 @@ require("GB.set")
 require("GB.lazy_init")
 
 vim.api.nvim_create_autocmd('TextYankPost', {
-    desc = 'Highlight when yanking (copying) text',
-    group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
-    callback = function()
-        vim.highlight.on_yank()
-    end,
+  desc = 'Highlight when yanking (copying) text',
+  group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+})
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  callback = function()
+    local dir = vim.fn.expand("<afile>:p:h")
+    if vim.fn.isdirectory(dir) == 0 then
+      vim.fn.mkdir(dir, "p")
+    end
+  end,
 })
 -- local augroup = vim.api.nvim_create_augroup
 -- local GBGroup = augroup('GB', {})

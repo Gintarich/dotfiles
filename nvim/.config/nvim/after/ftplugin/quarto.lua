@@ -1,4 +1,10 @@
-
+vim.bo.textwidth = 100
+vim.opt_local.formatoptions:append("t")
+vim.wo.linebreak = true
+vim.wo.breakindent = true
+-- vim.wo.colorcolumn = "120"
+vim.opt_local.tabstop = 4
+vim.wo.wrap = true;
 vim.g.slime_target = "neovim"
 vim.g.slime_bracketed_paste = 1
 
@@ -108,34 +114,34 @@ nmap('<S-Down>', '<cmd>resize -2<CR>')
 nmap('<S-Left>', '<cmd>vertical resize -2<CR>')
 nmap('<S-Right>', '<cmd>vertical resize +2<CR>')
 
-nmap( '<leader>qp', "<cmd>InsertPyChunk<CR>", 'python code chunk' )
-nmap( "<leader>qc", "<cmd>SlimeConfig<cr>", "Slime: configure target")
-nmap( "<leader>ql", "<cmd>SlimeSendCurrentLine<cr>", "Slime: send line")
-nmap( "<leader>qs", "<cmd>SlimeSend<cr>", "Slime: send selection")
-vmap( "<leader>qs", "<cmd>QuartoSendRange<cr>", "Slime: send paragraph")
-nmap( "<leader>qt", "<cmd>NewPyTerm<CR>", "Slime: send paragraph")
+nmap('<leader>qp', "<cmd>InsertPyChunk<CR>", 'python code chunk')
+nmap("<leader>qc", "<cmd>SlimeConfig<cr>", "Slime: configure target")
+nmap("<leader>ql", "<cmd>SlimeSendCurrentLine<cr>", "Slime: send line")
+nmap("<leader>qs", "<cmd>SlimeSend<cr>", "Slime: send selection")
+vmap("<leader>qs", "<cmd>QuartoSendRange<cr>", "Slime: send paragraph")
+nmap("<leader>qt", "<cmd>NewPyTerm<CR>", "Slime: send paragraph")
 
 -- Optional: send the current *Quarto chunk* if quarto-nvim is installed
 do
   local ok, runner = pcall(require, "quarto.runner")
   if ok then
-    nmap( "<leader>qr", runner.run_cell, "Quarto: run chunk (via Slime)")
-    nmap( "<leader>qR", runner.run_all, "Quarto: run all (via Slime)")
+    nmap("<leader>qr", runner.run_cell, "Quarto: run chunk (via Slime)")
+    nmap("<leader>qR", runner.run_all, "Quarto: run all (via Slime)")
   end
 end
 
 -- --- WhichKey: pretty menu (buffer-local) ---
 do
   local ok, wk = pcall(require, "which-key")
-if ok then
+  if ok then
     wk.add({
-      { "<leader>q", group = "Quarto", buffer = 0 },
+      { "<leader>q",  group = "Quarto",          buffer = 0 },
       { "<leader>qc", desc = "Configure target", buffer = 0 },
-      { "<leader>ql", desc = "Send line", buffer = 0 },
-      { "<leader>qs", desc = "Send selection", mode = "v", buffer = 0 },
-      { "<leader>qp", desc = "Send paragraph", buffer = 0 },
-      { "<leader>qr", desc = "Run chunk (qmd)", buffer = 0 },
-      { "<leader>qR", desc = "Run all (qmd)", buffer = 0 },
+      { "<leader>ql", desc = "Send line",        buffer = 0 },
+      { "<leader>qs", desc = "Send selection",   mode = "v", buffer = 0 },
+      { "<leader>qp", desc = "Send paragraph",   buffer = 0 },
+      { "<leader>qr", desc = "Run chunk (qmd)",  buffer = 0 },
+      { "<leader>qR", desc = "Run all (qmd)",    buffer = 0 },
     })
   end
 end

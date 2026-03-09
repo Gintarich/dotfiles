@@ -1,12 +1,11 @@
-
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, {desc = "Open Netrw"})
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Open Netrw" })
 
 -- Document stuff
-vim.keymap.set("n", "<leader>dm", "<cmd>Noice all<CR>", {desc = "[D]ocument [M]essages"})
+vim.keymap.set("n", "<leader>dm", "<cmd>Noice all<CR>", { desc = "[D]ocument [M]essages" })
 
 
-vim.keymap.set("n", "<leader>hr", "<cmd>noh<CR>", {desc = "[H]ighlight [R]emove"})
+vim.keymap.set("n", "<leader>hr", "<cmd>noh<CR>", { desc = "[H]ighlight [R]emove (clear search hl)" })
 
 
 -- Moving lines
@@ -25,47 +24,62 @@ vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("x", "<leader>P", [["_dP]])
 
 -- next greatest remap ever : asbjornHalan
-vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
-vim.keymap.set({"n", "v"}, "<leader>p", [["+p]])
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
+vim.keymap.set({ "n", "v" }, "<leader>p", [["+p]])
 -- Copy in system clipboard
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
-vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 
 -- This is going to get me cancelled
 -- vim.keymap.set("i", "<C-c>", "<Esc>")
 
 vim.keymap.set("n", "Q", "<nop>")
 -- vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
-vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, {desc = '[F]ormat current file'})
-vim.keymap.set({"n", "v"}, "<leader>ca", vim.lsp.buf.code_action, {desc = '[C]ode [A]ction'})
+vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = '[F]ormat current file' })
+vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = '[C]ode [A]ction' })
 
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
-vim.keymap.set("n", "<leader>rs", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], {desc = "[R]ename string"})
+vim.keymap.set("n", "<leader>rs", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "[R]ename string" })
 -- vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 --vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.dotfiles/nvim/.config/nvim/lua/theprimeagen/packer.lua<CR>");
 --vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>");
 
 vim.keymap.set("n", "<leader><leader>", function()
-    vim.cmd("so")
+  vim.cmd("so")
 end)
 
 vim.keymap.set("v", "<C-b>", 'c**<C-r>"**<Esc>', { desc = "Bold selection" })
-vim.keymap.set('n', "<C-b>", 'viwc**<C-r>"**<Esc>', {desc = "Bold under cursor"})
+vim.keymap.set('n', "<C-b>", 'viwc**<C-r>"**<Esc>', { desc = "Bold under cursor" })
 
-vim.keymap.set("n", "<leader>pp", function ()
-vim.lsp.buf.signature_help()
+vim.keymap.set("n", "<leader>pp", function()
+  vim.lsp.buf.signature_help()
 end)
 
 --Obsidian
-vim.keymap.set('n', '<leader>ns',"<cmd>Obsidian search<cr>")
+vim.keymap.set('n', '<leader>ns', "<cmd>Obsidian search<cr>")
 
 
-vim.keymap.set("n","<leader>cn",function ()
+vim.keymap.set("n", "<leader>cn", function()
   require("todo-comments").jump_next()
-end, {desc = "Next todo comment"})
+end, { desc = "Next todo comment" })
+
+-- Show diagnostics with aditional info
+vim.keymap.set("n", "<leader>xd", function()
+  local opts = {
+    scope = "line",
+    header = "", -- no "Diagnostics:" header
+    prefix = "", -- no bullets
+    format = function(d)
+      local src = d.source and ("[" .. d.source .. "] ") or ""
+      local code = d.code and ("(" .. tostring(d.code) .. ") ") or ""
+      return src .. code .. d.message
+    end,
+  }
+  vim.diagnostic.open_float(nil, opts)
+end, { desc = "Line diagnostics (with source)" })
