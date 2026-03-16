@@ -138,6 +138,7 @@ return {
           right_pad = 4,
           width = 'block',
           border = 'thick',
+          priority = 0,
         },
         paragraph = {
           left_margin = 0,

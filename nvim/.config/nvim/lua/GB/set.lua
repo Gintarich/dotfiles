@@ -6,6 +6,17 @@ vim.g.python3_host_prog = venv .. "/bin/python"
 vim.env.VIRTUAL_ENV = venv
 vim.env.PATH = venv .. "/bin:" .. vim.fn.expand("~/.local/bin") .. ":" .. vim.env.PATH
 
+local site_path = vim.fs.normalize(vim.fn.stdpath("data") .. "/site")
+local site_paths = { site_path, site_path .. "/" }
+local runtime_paths = vim.api.nvim_list_runtime_paths()
+
+for _, wanted in ipairs(site_paths) do
+    if not vim.list_contains(runtime_paths, wanted) then
+        vim.opt.runtimepath:append(wanted)
+        runtime_paths[#runtime_paths + 1] = wanted
+    end
+end
+
 
 
 vim.o.foldcolumn = '1'         -- '0' is not bad

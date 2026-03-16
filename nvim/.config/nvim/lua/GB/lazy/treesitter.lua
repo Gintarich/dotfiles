@@ -1,6 +1,6 @@
 return {
   'nvim-treesitter/nvim-treesitter',
-  branch = "master", -- keep the old API (has nvim-treesitter.configs)
+  branch = "main",
   build = ":TSUpdate",
   cmd = { "TSUpdate", "TSInstall", "TSUninstall", "TSUpdateSync", "TSInstallSync" },
   event = { "BufReadPost", "BufNewFile" },
@@ -8,7 +8,8 @@ return {
     ensure_installed = {
       "c", "cpp", "c_sharp", "lua", "vim", "vimdoc",
       "markdown", "markdown_inline", "bash", "regex",
-      "latex", "html", "css", "javascript", "python"
+      "latex", "html", "css", "javascript", "typescript", "tsx", "python",
+      "json", "yaml", "toml"
     },
     -- "latex", "html", "css", "javascript", "javascriptreact", "typescriptreact", "python"
     sync_install = false,
@@ -19,7 +20,43 @@ return {
     },
   },
   config = function(_, opts)
-    require('nvim-treesitter.configs').setup(opts)
+    require('nvim-treesitter').setup(opts)
+
+    local ts_config = require('nvim-treesitter.config')
+    local get_install_dir = ts_config.get_install_dir
+    ts_config.get_install_dir = function(dir_name)
+      local dir = get_install_dir(dir_name)
+      if dir_name == "" then
+        return vim.fs.normalize(dir)
+      end
+      return dir
+    end
+
+    vim.treesitter.language.register("javascript", "js")
+    vim.treesitter.language.register("javascript", "mjs")
+    vim.treesitter.language.register("javascript", "cjs")
+    vim.treesitter.language.register("typescript", "ts")
+    vim.treesitter.language.register("typescript", "mts")
+    vim.treesitter.language.register("typescript", "cts")
+    vim.treesitter.language.register("tsx", "jsx")
+    vim.treesitter.language.register("tsx", "javascriptreact")
+    vim.treesitter.language.register("tsx", "typescriptreact")
+    vim.treesitter.language.register("bash", "sh")
+    vim.treesitter.language.register("bash", "zsh")
+
+    local ts_augroup = vim.api.nvim_create_augroup("GB-treesitter-highlight", { clear = true })
+    vim.api.nvim_create_autocmd("FileType", {
+      group = ts_augroup,
+      callback = function(args)
+        pcall(vim.treesitter.start, args.buf)
+      end,
+    })
+
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+      if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].filetype ~= "" then
+        pcall(vim.treesitter.start, buf)
+      end
+    end
   end,
   -- config = function()
   --     require 'nvim-treesitter.configs'.setup {
