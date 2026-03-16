@@ -140,18 +140,18 @@ return {
           border = 'thick',
         },
         paragraph = {
-          left_margin = 0.05,
+          left_margin = 0,
           min_width = 70,
         },
         heading = {
           sign        = false,
           position    = "inline",
 
-          -- Center only H1 + H2
-          width       = { "block", "block", "block", "block", "full", "full" },
-          left_margin = { 0.3, 0.3, 0.3, 0.3, 0, 0 },
-          left_pad    = { 0.2, 0.2, 0.2, 0.2, 0, 0 },
-          right_pad   = { 0.2, 0.2, 0.2, 0.2, 0, 0 },
+          width       = { "block", "block", "block", "block", "block", "block" },
+          min_width   = 40,
+          left_margin = { 0, 0, 0, 0, 0, 0 },
+          left_pad    = { 0, 2, 4, 6, 8, 10 },
+          right_pad   = { 0, 0, 0, 0, 0, 0 },
 
           -- Number H2+ only:
           -- H1: (no number)
