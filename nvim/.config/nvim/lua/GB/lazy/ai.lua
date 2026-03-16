@@ -7,14 +7,38 @@ return {
     -- { "folke/snacks.nvim", opts = { input = {}, picker = {}, terminal = {} } },
   },
   config = function()
+    local opencode_port = 4545
+    local opencode_cmd = "opencode --port " .. opencode_port
+
     ---@type opencode.Opts
     vim.g.opencode_opts = {
-      provider = {
-        enabled = "kitty",
-        kitty = {
-          location = "os-window",
-        }
-      }
+      server = {
+        port = opencode_port,
+        start = function()
+          vim.fn.jobstart({
+            "hyprctl",
+            "dispatch",
+            "exec",
+            "kitty --class opencode " .. opencode_cmd,
+          }, { detach = true })
+        end,
+        stop = function()
+          vim.fn.system({ "pkill", "-f", opencode_cmd })
+        end,
+        toggle = function()
+          local running = vim.fn.system({ "pgrep", "-f", opencode_cmd })
+          if vim.v.shell_error == 0 and running ~= "" then
+            vim.fn.system({ "pkill", "-f", opencode_cmd })
+          else
+            vim.fn.jobstart({
+              "hyprctl",
+              "dispatch",
+              "exec",
+              "kitty --class opencode " .. opencode_cmd,
+            }, { detach = true })
+          end
+        end,
+      },
       -- Your configuration, if any — see `lua/opencode/config.lua`, or "goto definition".
     }
 

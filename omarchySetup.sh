@@ -2,6 +2,8 @@
 
 source ./scripts/setup-zsh.sh
 source ./scripts/utils.sh
+source ./scripts/prepare_stow_targets.sh
+source ./scripts/setup_terminal.sh
 source ./scripts/setup_git.sh
 
 # Array of common packages to install
@@ -34,6 +36,8 @@ else
 fi
 
 
-stow -vt ~ nvim zsh tmux
+prepare_stow_target_links
+stow -vt ~ nvim zsh tmux kitty
 
+setup_kitty_terminal
 install_zsh

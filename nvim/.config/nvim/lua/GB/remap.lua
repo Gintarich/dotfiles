@@ -64,6 +64,25 @@ end)
 --Obsidian
 vim.keymap.set('n', '<leader>ns', "<cmd>Obsidian search<cr>")
 
+vim.keymap.set("v", "<leader>ee", function()
+  local start_line = vim.fn.line("'<")
+  local end_line = vim.fn.line("'>")
+  local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
+  local script = table.concat(lines, "\n")
+
+  local output = vim.fn.system({ "bash", "-s" }, script)
+  if vim.v.shell_error ~= 0 then
+    vim.notify(output, vim.log.levels.ERROR, { title = "Bash selection failed" })
+    return
+  end
+
+  if output ~= "" then
+    vim.notify(output, vim.log.levels.INFO, { title = "Bash output" })
+  else
+    vim.notify("Selection executed successfully", vim.log.levels.INFO, { title = "Bash" })
+  end
+end, { desc = "[E]xecute selection in bash" })
+
 
 vim.keymap.set("n", "<leader>cn", function()
   require("todo-comments").jump_next()

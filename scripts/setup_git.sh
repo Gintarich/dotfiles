@@ -13,7 +13,7 @@ function setup_git{
     #For GitHub SSH key setup:
     # 1) Create key only if it doesn't exist
     if [ ! -f "$HOME/.ssh/id_ed25519" ]; then
-      ssh-keygen -t ed25519 -C "you@example.com" -f "$HOME/.ssh/id_ed25519" -N ""
+      ssh-keygen -t ed25519 -C "gintars.briedis@gmail.com" -f "$HOME/.ssh/id_ed25519" -N ""
     fi
     # 2) Start agent + add key
     eval "$(ssh-agent -s)"
