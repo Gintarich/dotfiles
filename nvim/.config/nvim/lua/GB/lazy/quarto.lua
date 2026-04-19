@@ -174,14 +174,17 @@ return {
       vim.g.molten_image_location = "virt" -- "both" if you want float + virt
     end,
     config = function()
+      local function set_quarto_runner(method)
+        require('quarto.config')
+        QuartoConfig.codeRunner.default_method = method
+      end
+
       local init = function()
-        local quarto_cfg = require('quarto.config').config
-        quarto_cfg.codeRunner.default_method = 'molten'
+        set_quarto_runner('molten')
         vim.cmd("MoltenInit quarto")
       end
       local deinit = function()
-        local quarto_cfg = require('quarto.config').config
-        quarto_cfg.codeRunner.default_method = 'slime'
+        set_quarto_runner('slime')
         vim.cmd [[MoltenDeinit]]
       end
       vim.keymap.set('n', '<leader>mi', init, { silent = true, desc = 'Initialize molten' })
